@@ -1,6 +1,7 @@
 %{
 
 #include <stdio.h>
+#include "chip8_asm.tab.h"
 void yyerror(char*);
 int yyparse(void);
 
