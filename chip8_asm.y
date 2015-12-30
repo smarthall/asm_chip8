@@ -14,7 +14,7 @@ extern void yyerror(char*);
 }
 
 %token SEMICOLON COMMA
-%token MOV_MNEMONIC CALL_MNEMONIC CLS_MNEMONIC RTN_MNEMONIC
+%token MOV_MNEMONIC CALL_MNEMONIC CLS_MNEMONIC RTN_MNEMONIC JMP_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> HEX_CHAR LABEL ADDRESS
@@ -34,7 +34,8 @@ statement: instruction SEMICOLON
 instruction: mov
            | call
            | cls
-           | rtn;
+           | rtn
+           | jmp;
 
 mov: MOV_MNEMONIC HEX_CHAR COMMA HEX_CHAR
    { printf("Move instruction.\n"); };
@@ -47,4 +48,7 @@ cls: CLS_MNEMONIC
 
 rtn: RTN_MNEMONIC
    { printf("Return instruction.\n"); };
+
+jmp: JMP_MNEMONIC ADDRESS
+   { printf("Jump instruction.\n"); };
 
