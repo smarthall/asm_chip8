@@ -24,7 +24,7 @@ white   [ \t\n]
 "rtn"       { return RTN_MNEMONIC; }
 "jmp"       { return JMP_MNEMONIC; }
 
-{hex}       { yylval.char_token = yytext; return HEX_CHAR; }
+{hex}[Xx]      { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
 {alnum}\:   { yylval.char_token = yytext; return LABEL; }
 0x{hex}+    { yylval.char_token = yytext; return ADDRESS; }

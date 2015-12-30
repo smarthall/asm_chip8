@@ -18,7 +18,7 @@ extern void yyerror(char*);
 %token RCALL_MNEMONIC
 
 %token <int_token> NUMBER
-%token <char_token> HEX_CHAR LABEL ADDRESS
+%token <char_token> REGISTER LABEL ADDRESS
 
 %start program
 
@@ -39,7 +39,12 @@ instruction: mov
            | jmp
            | rcall;
 
-mov: MOV_MNEMONIC HEX_CHAR COMMA HEX_CHAR
+mov_source: REGISTER
+          | NUMBER;
+
+mov_target: REGISTER;
+
+mov: MOV_MNEMONIC mov_source COMMA mov_target
    { printf("Move instruction.\n"); };
 
 rcall: RCALL_MNEMONIC ADDRESS
