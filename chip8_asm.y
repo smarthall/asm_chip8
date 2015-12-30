@@ -15,6 +15,7 @@ extern void yyerror(char*);
 
 %token SEMICOLON COMMA
 %token MOV_MNEMONIC CALL_MNEMONIC CLS_MNEMONIC RTN_MNEMONIC JMP_MNEMONIC
+%token RCALL_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> HEX_CHAR LABEL ADDRESS
@@ -35,10 +36,14 @@ instruction: mov
            | call
            | cls
            | rtn
-           | jmp;
+           | jmp
+           | rcall;
 
 mov: MOV_MNEMONIC HEX_CHAR COMMA HEX_CHAR
    { printf("Move instruction.\n"); };
+
+rcall: RCALL_MNEMONIC ADDRESS
+   { printf("RCA1802 call instruction.\n"); };
 
 call: CALL_MNEMONIC ADDRESS
    { printf("Call instruction.\n"); };

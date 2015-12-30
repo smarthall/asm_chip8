@@ -18,6 +18,7 @@ white   [ \t\n]
 ","         { return COMMA; }
 
 "mov"       { return MOV_MNEMONIC; }
+"rcall"     { return RCALL_MNEMONIC; }
 "call"      { return CALL_MNEMONIC; }
 "cls"       { return CLS_MNEMONIC; }
 "rtn"       { return RTN_MNEMONIC; }
