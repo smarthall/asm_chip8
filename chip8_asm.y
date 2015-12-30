@@ -78,7 +78,10 @@ se: SE_MNEMONIC REGISTER COMMA se_target
 sne: SNE_MNEMONIC REGISTER COMMA NUMBER
    { printf("Skip if not equal instruction.\n"); };
 
-add: ADD_MNEMONIC REGISTER COMMA NUMBER
+add_target: NUMBER
+          | REGISTER;
+
+add: ADD_MNEMONIC REGISTER COMMA add_target
    { printf("Add instruction.\n"); };
 
 or: OR_MNEMONIC REGISTER COMMA REGISTER
