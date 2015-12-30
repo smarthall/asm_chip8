@@ -17,9 +17,13 @@ white   [ \t\n]
 ";"         { return SEMICOLON; }
 ","         { return COMMA; }
 "mov"       { return MOV_MNEMONIC; }
+"call"      { return CALL_MNEMONIC; }
+"cls"       { return CLS_MNEMONIC; }
+"rtn"       { return RTN_MNEMONIC; }
 {hex}       { yylval.char_token = yytext; return HEX_CHAR; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
 {alnum}\:   { yylval.char_token = yytext; return LABEL; }
+0x{hex}+    { yylval.char_token = yytext; return ADDRESS; }
 {white}+    ; // Ignore whitespace
 
 %%
