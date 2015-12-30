@@ -15,7 +15,8 @@ extern void yyerror(char*);
 
 %token SEMICOLON COMMA
 %token MOV_MNEMONIC CALL_MNEMONIC CLS_MNEMONIC RTN_MNEMONIC JMP_MNEMONIC
-%token RCALL_MNEMONIC SE_MNEMONIC SNE_MNEMONIC ADD_MNEMONIC
+%token RCALL_MNEMONIC SE_MNEMONIC SNE_MNEMONIC ADD_MNEMONIC OR_MNEMONIC
+%token AND_MNEMONIC XOR_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> REGISTER LABEL ADDRESS
@@ -40,7 +41,10 @@ instruction: mov
            | rcall
            | se
            | sne
-           | add;
+           | add
+           | and
+           | or
+           | xor;
 
 mov_source: REGISTER
           | NUMBER;
@@ -76,4 +80,13 @@ sne: SNE_MNEMONIC REGISTER COMMA NUMBER
 
 add: ADD_MNEMONIC REGISTER COMMA NUMBER
    { printf("Add instruction.\n"); };
+
+or: OR_MNEMONIC REGISTER COMMA REGISTER
+   { printf("Or instruction.\n"); };
+
+and: AND_MNEMONIC REGISTER COMMA REGISTER
+   { printf("And instruction.\n"); };
+
+xor: XOR_MNEMONIC REGISTER COMMA REGISTER
+   { printf("Xor instruction.\n"); };
 

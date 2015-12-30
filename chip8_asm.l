@@ -26,6 +26,9 @@ white   [ \t\n]
 "se"        { return SE_MNEMONIC; }
 "sne"       { return SNE_MNEMONIC; }
 "add"       { return ADD_MNEMONIC; }
+"or"        { return OR_MNEMONIC; }
+"and"       { return AND_MNEMONIC; }
+"xor"       { return XOR_MNEMONIC; }
 
 {hex}[Xx]      { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
