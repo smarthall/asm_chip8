@@ -18,6 +18,7 @@ extern void yyerror(char*);
 %token RCALL_MNEMONIC SE_MNEMONIC SNE_MNEMONIC ADD_MNEMONIC OR_MNEMONIC
 %token AND_MNEMONIC XOR_MNEMONIC SHL_MNEMONIC SHR_MNEMONIC SUB_MNEMONIC
 %token RSB_MNEMONIC LDI_MNEMONIC JMI_MNEMONIC RAND_MNEMONIC DRAW_MNEMONIC
+%token SKK_MNEMONIC SNK_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> REGISTER LABEL ADDRESS
@@ -53,7 +54,9 @@ instruction: mov
            | ldi
            | jmi
            | rand
-           | draw;
+           | draw
+           | skk
+           | snk;
 
 mov_source: REGISTER
           | NUMBER;
@@ -125,4 +128,10 @@ rand: RAND_MNEMONIC REGISTER COMMA NUMBER
 
 draw: DRAW_MNEMONIC REGISTER COMMA REGISTER COMMA NUMBER
     { printf("Draw instruction.\n"); };
+
+skk: SKK_MNEMONIC REGISTER
+   { printf("Skip if key pressed instruction.\n"); };
+
+snk: SNK_MNEMONIC REGISTER
+   { printf("Skip if key not pressed instruction.\n"); };
 

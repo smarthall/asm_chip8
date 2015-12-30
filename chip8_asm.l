@@ -37,6 +37,8 @@ white   [ \t\n]
 "jmi"       { return JMI_MNEMONIC; }
 "rand"      { return RAND_MNEMONIC; }
 "draw"      { return DRAW_MNEMONIC; }
+"skk"       { return SKK_MNEMONIC; }
+"snk"       { return SNK_MNEMONIC; }
 
 {hex}[Xx]   { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
