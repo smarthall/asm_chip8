@@ -34,8 +34,9 @@ white   [ \t\n]
 "sub"       { return SUB_MNEMONIC; }
 "rsb"       { return RSB_MNEMONIC; }
 "ldi"       { return LDI_MNEMONIC; }
+"jmi"       { return JMI_MNEMONIC; }
 
-{hex}[Xx]      { yylval.char_token = yytext; return REGISTER; }
+{hex}[Xx]   { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
 {alnum}\:   { yylval.char_token = yytext; return LABEL; }
 0x{hex}+    { yylval.char_token = yytext; return ADDRESS; }
