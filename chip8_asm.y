@@ -16,7 +16,8 @@ extern void yyerror(char*);
 %token SEMICOLON COMMA
 %token MOV_MNEMONIC CALL_MNEMONIC CLS_MNEMONIC RTN_MNEMONIC JMP_MNEMONIC
 %token RCALL_MNEMONIC SE_MNEMONIC SNE_MNEMONIC ADD_MNEMONIC OR_MNEMONIC
-%token AND_MNEMONIC XOR_MNEMONIC SHL_MNEMONIC SHR_MNEMONIC
+%token AND_MNEMONIC XOR_MNEMONIC SHL_MNEMONIC SHR_MNEMONIC SUB_MNEMONIC
+%token RSB_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> REGISTER LABEL ADDRESS
@@ -46,7 +47,9 @@ instruction: mov
            | or
            | xor
            | shl
-           | shr;
+           | shr
+           | sub
+           | rsb;
 
 mov_source: REGISTER
           | NUMBER;
@@ -100,4 +103,10 @@ shl: SHL_MNEMONIC REGISTER
 
 shr: SHR_MNEMONIC REGISTER
    { printf("Shift right instruction.\n"); };
+
+sub: SUB_MNEMONIC REGISTER COMMA REGISTER
+   { printf("Subtract instruction.\n"); };
+
+rsb: RSB_MNEMONIC REGISTER COMMA REGISTER
+   { printf("Right subtract instruction.\n"); };
 
