@@ -23,6 +23,8 @@ white   [ \t\n]
 "cls"       { return CLS_MNEMONIC; }
 "rtn"       { return RTN_MNEMONIC; }
 "jmp"       { return JMP_MNEMONIC; }
+"se"        { return SE_MNEMONIC; }
+"sne"       { return SNE_MNEMONIC; }
 
 {hex}[Xx]      { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }

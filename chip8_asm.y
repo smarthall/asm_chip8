@@ -15,7 +15,7 @@ extern void yyerror(char*);
 
 %token SEMICOLON COMMA
 %token MOV_MNEMONIC CALL_MNEMONIC CLS_MNEMONIC RTN_MNEMONIC JMP_MNEMONIC
-%token RCALL_MNEMONIC
+%token RCALL_MNEMONIC SE_MNEMONIC SNE_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> REGISTER LABEL ADDRESS
@@ -37,7 +37,9 @@ instruction: mov
            | cls
            | rtn
            | jmp
-           | rcall;
+           | rcall
+           | se
+           | sne;
 
 mov_source: REGISTER
           | NUMBER;
@@ -61,4 +63,13 @@ rtn: RTN_MNEMONIC
 
 jmp: JMP_MNEMONIC ADDRESS
    { printf("Jump instruction.\n"); };
+
+se_target: REGISTER
+         | NUMBER;
+
+se: SE_MNEMONIC REGISTER COMMA se_target
+  { printf("Skip if equal instruction.\n"); };
+
+sne: SNE_MNEMONIC REGISTER COMMA NUMBER
+   { printf("Skip if not equal instruction.\n"); };
 
