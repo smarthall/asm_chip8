@@ -35,6 +35,7 @@ white   [ \t\n]
 "rsb"       { return RSB_MNEMONIC; }
 "ldi"       { return LDI_MNEMONIC; }
 "jmi"       { return JMI_MNEMONIC; }
+"rand"      { return RAND_MNEMONIC; }
 
 {hex}[Xx]   { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }

@@ -17,7 +17,7 @@ extern void yyerror(char*);
 %token MOV_MNEMONIC CALL_MNEMONIC CLS_MNEMONIC RTN_MNEMONIC JMP_MNEMONIC
 %token RCALL_MNEMONIC SE_MNEMONIC SNE_MNEMONIC ADD_MNEMONIC OR_MNEMONIC
 %token AND_MNEMONIC XOR_MNEMONIC SHL_MNEMONIC SHR_MNEMONIC SUB_MNEMONIC
-%token RSB_MNEMONIC LDI_MNEMONIC JMI_MNEMONIC
+%token RSB_MNEMONIC LDI_MNEMONIC JMI_MNEMONIC RAND_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> REGISTER LABEL ADDRESS
@@ -51,7 +51,8 @@ instruction: mov
            | sub
            | rsb
            | ldi
-           | jmi;
+           | jmi
+           | rand;
 
 mov_source: REGISTER
           | NUMBER;
@@ -117,4 +118,7 @@ ldi: LDI_MNEMONIC ADDRESS
 
 jmi: JMI_MNEMONIC ADDRESS
    { printf("Indexed jump instruction.\n"); };
+
+rand: RAND_MNEMONIC REGISTER COMMA NUMBER
+    { printf("Random number instruction.\n"); };
 
