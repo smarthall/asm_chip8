@@ -29,6 +29,8 @@ white   [ \t\n]
 "or"        { return OR_MNEMONIC; }
 "and"       { return AND_MNEMONIC; }
 "xor"       { return XOR_MNEMONIC; }
+"shl"       { return SHL_MNEMONIC; }
+"shr"       { return SHR_MNEMONIC; }
 
 {hex}[Xx]      { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
