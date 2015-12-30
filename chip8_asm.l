@@ -25,6 +25,7 @@ white   [ \t\n]
 "jmp"       { return JMP_MNEMONIC; }
 "se"        { return SE_MNEMONIC; }
 "sne"       { return SNE_MNEMONIC; }
+"add"       { return ADD_MNEMONIC; }
 
 {hex}[Xx]      { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
