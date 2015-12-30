@@ -33,6 +33,7 @@ white   [ \t\n]
 "shr"       { return SHR_MNEMONIC; }
 "sub"       { return SUB_MNEMONIC; }
 "rsb"       { return RSB_MNEMONIC; }
+"ldi"       { return LDI_MNEMONIC; }
 
 {hex}[Xx]      { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
