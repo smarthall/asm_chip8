@@ -57,8 +57,9 @@ white    [ \t\n]
 {uhexchar}X { yylval.int_token = yytext - 'A' + 10; return REGISTER; }
 
 {digit}+    { yylval.int_token = strtol(yytext, NULL, 10); return NUMBER; }
-{alnum}\:   { yylval.char_token = yytext; return LABEL; }
 0x{hex}+    { yylval.int_token = strtol(yytext + 2, NULL, 16); return ADDRESS; }
+
+{alnum}\:   { yylval.char_token = yytext; return LABEL; }
 
 {white}+    ; // Ignore whitespace
 
