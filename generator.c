@@ -48,3 +48,16 @@ uint16_t generate_se_register_number(int src, int dst) {
 
     return 0x3000 | src | dst;
 }
+
+uint16_t generate_sne_register_register(int src, int dst) {
+    src = src << 4;
+    dst = dst << 8;
+
+    return 0x9000 | src | dst;
+}
+
+uint16_t generate_sne_register_number(int src, int dst) {
+    src = src << 8;
+
+    return 0x4000 | src | dst;
+}
