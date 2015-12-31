@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "generator.h"
+
 extern int yylex();
 extern void yyerror(char*);
 

@@ -4,3 +4,6 @@ asm_chip8
 # Generated from the lexer and parser
 *.yy.c
 *.tab.[ch]
+
+# C object files
+*.o
