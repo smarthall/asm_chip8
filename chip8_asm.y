@@ -49,9 +49,9 @@ statement_list: statement statement_list
               | statement;
 
 statement: instruction SEMICOLON
-         { printf("Opcode: %04x\n", $1); }
+         { printf("Opcode: 0x%04x\n", $1); }
          | LABEL instruction SEMICOLON
-         { printf("Opcode: %04x\n", $2); };
+         { printf("Opcode: 0x%04x\n", $2); };
 
 instruction: mov
            | call
@@ -84,19 +84,19 @@ instruction: mov
            | ldr;
 
 mov: MOV_MNEMONIC REGISTER COMMA REGISTER
-   { $$ = mov_register_register($2, $4); }
+   { $$ = generate_mov_register_register($2, $4); }
 
    | MOV_MNEMONIC NUMBER COMMA REGISTER
-   { $$ = mov_number_register($2, $4);};
+   { $$ = generate_mov_number_register($2, $4);};
 
 rcall: RCALL_MNEMONIC ADDRESS
-   { printf("RCA1802 call instruction.\n"); };
+   { $$ = generate_rcall($2); };
 
 call: CALL_MNEMONIC ADDRESS
-   { printf("Call instruction.\n"); };
+   { $$ = generate_call($2); };
 
 cls: CLS_MNEMONIC
-   { printf("Clear screen instruction.\n"); };
+   { $$ = generate_cls(); };
 
 rtn: RTN_MNEMONIC
    { printf("Return instruction.\n"); };
