@@ -19,7 +19,7 @@ extern void yyerror(char*);
 %token AND_MNEMONIC XOR_MNEMONIC SHL_MNEMONIC SHR_MNEMONIC SUB_MNEMONIC
 %token RSB_MNEMONIC LDI_MNEMONIC JMI_MNEMONIC RAND_MNEMONIC DRAW_MNEMONIC
 %token SKK_MNEMONIC SNK_MNEMONIC SDELAY_MNEMONIC SSOUND_MNEMONIC
-%token ADI_MNEMONIC FONT_MNEMONIC BCD_MNEMONIC
+%token ADI_MNEMONIC FONT_MNEMONIC BCD_MNEMONIC STR_MNEMONIC LDR_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> REGISTER LABEL ADDRESS
@@ -62,7 +62,9 @@ instruction: mov
            | ssound
            | adi
            | font
-           | bcd;
+           | bcd
+           | str
+           | ldr;
 
 mov_source: REGISTER
           | NUMBER;
@@ -155,4 +157,10 @@ font: FONT_MNEMONIC REGISTER
 
 bcd: BCD_MNEMONIC REGISTER
    { printf("Binary coded decimal instruction.\n"); };
+
+str: STR_MNEMONIC REGISTER
+   { printf("Store registers instruction.\n"); };
+
+ldr: LDR_MNEMONIC REGISTER
+   { printf("Load registers instruction.\n"); };
 

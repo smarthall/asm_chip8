@@ -44,6 +44,8 @@ white   [ \t\n]
 "adi"       { return ADI_MNEMONIC; }
 "font"      { return FONT_MNEMONIC; }
 "bcd"       { return BCD_MNEMONIC; }
+"str"       { return STR_MNEMONIC; }
+"ldr"       { return LDR_MNEMONIC; }
 
 {hex}[Xx]   { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
