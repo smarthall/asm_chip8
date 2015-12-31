@@ -11,14 +11,17 @@ extern void yyerror(char*);
 
 %}
 
+/* Types we use */
 %union {
     int         int_token;
     char        *char_token;
     uint16_t    opcode_token;
 }
 
+/* Seperators */
 %token SEMICOLON COMMA
 
+/* Mnemonics */
 %token MOV_MNEMONIC CALL_MNEMONIC CLS_MNEMONIC RTN_MNEMONIC JMP_MNEMONIC
 %token RCALL_MNEMONIC SE_MNEMONIC SNE_MNEMONIC ADD_MNEMONIC OR_MNEMONIC
 %token AND_MNEMONIC XOR_MNEMONIC SHL_MNEMONIC SHR_MNEMONIC SUB_MNEMONIC
@@ -26,13 +29,14 @@ extern void yyerror(char*);
 %token SKK_MNEMONIC SNK_MNEMONIC SDELAY_MNEMONIC SSOUND_MNEMONIC
 %token ADI_MNEMONIC FONT_MNEMONIC BCD_MNEMONIC STR_MNEMONIC LDR_MNEMONIC
 
+/* things coming from the lexer */
 %token <int_token> NUMBER ADDRESS REGISTER
 %token <char_token> LABEL
 
+/* Types for our instruction grammars */
 %type <opcode_token> mov call cls rtn jmp rcall se sne add and or xor shl shr
 %type <opcode_token> sub rsb ldi jmi rand draw skk snk sdelay ssound adi font
 %type <opcode_token> bcd str ldr
-
 %type <opcode_token> instruction
 
 %start program

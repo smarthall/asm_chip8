@@ -10,6 +10,7 @@ int yyparse(void);
 
 %}
 
+/* Character types */
 digit    [0-9]
 hex      [0-9a-fA-F]
 hexchar  [a-f]
@@ -19,9 +20,11 @@ white    [ \t\n]
 
 %%
 
+ /* Seperators */
 ";"         { return SEMICOLON; }
 ","         { return COMMA; }
 
+ /* Mnemonics */
 "mov"       { return MOV_MNEMONIC; }
 "rcall"     { return RCALL_MNEMONIC; }
 "call"      { return CALL_MNEMONIC; }
@@ -52,15 +55,21 @@ white    [ \t\n]
 "str"       { return STR_MNEMONIC; }
 "ldr"       { return LDR_MNEMONIC; }
 
+ /* Register names */
 {digit}[Xx] { yylval.int_token = *yytext - '0'; return REGISTER; }
 {hexchar}x  { yylval.int_token = *yytext - 'a' + 10; return REGISTER; }
 {uhexchar}X { yylval.int_token = *yytext - 'A' + 10; return REGISTER; }
 
+ /* Base 10 numbers */
 {digit}+    { yylval.int_token = strtol(yytext, NULL, 10); return NUMBER; }
+
+ /* Hex numbers */
 0x{hex}+    { yylval.int_token = strtol(yytext + 2, NULL, 16); return ADDRESS; }
 
+ /* Labels */
 {alnum}+\:   { yylval.char_token = yytext; return LABEL; }
 
+ /* Whitespace */
 {white}+    ; // Ignore whitespace
 
 %%
