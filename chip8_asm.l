@@ -53,7 +53,7 @@ white   [ \t\n]
 {hex}[Xx]   { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = strtol(yytext, NULL, 10); return NUMBER; }
 {alnum}\:   { yylval.char_token = yytext; return LABEL; }
-0x{hex}+    { yylval.char_token = yytext; return ADDRESS; }
+0x{hex}+    { yylval.int_token = strtol(yytext + 2, NULL, 16); return ADDRESS; }
 
 {white}+    ; // Ignore whitespace
 
