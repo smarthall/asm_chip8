@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 
 #include "generator.h"
 
@@ -11,8 +12,9 @@ extern void yyerror(char*);
 %}
 
 %union {
-	int		int_token;
-    char    *char_token;
+    int         int_token;
+    char        *char_token;
+    uint16_t    opcode_token;
 }
 
 %token SEMICOLON COMMA
@@ -27,6 +29,12 @@ extern void yyerror(char*);
 %token <int_token> NUMBER ADDRESS REGISTER
 %token <char_token> LABEL
 
+%type <opcode_token> mov call cls rtn jmp rcall se sne add and or xor shl shr
+%type <opcode_token> sub rsb ldi jmi rand draw skk snk sdelay ssound adi font
+%type <opcode_token> bcd str ldr
+
+%type <opcode_token> instruction
+
 %start program
 
 %%
@@ -37,7 +45,9 @@ statement_list: statement statement_list
               | statement;
 
 statement: instruction SEMICOLON
-         | LABEL instruction SEMICOLON;
+         { printf("Opcode: %04x\n", $1); }
+         | LABEL instruction SEMICOLON
+         { printf("Opcode: %04x\n", $2); };
 
 instruction: mov
            | call
@@ -69,13 +79,11 @@ instruction: mov
            | str
            | ldr;
 
-mov_source: REGISTER
-          | NUMBER;
+mov: MOV_MNEMONIC REGISTER COMMA REGISTER
+   { $$ = mov_register_register($2, $4); }
 
-mov_target: REGISTER;
-
-mov: MOV_MNEMONIC mov_source COMMA mov_target
-   { printf("Move instruction.\n"); };
+   | MOV_MNEMONIC NUMBER COMMA REGISTER
+   { $$ = mov_number_register($2, $4);};
 
 rcall: RCALL_MNEMONIC ADDRESS
    { printf("RCA1802 call instruction.\n"); };
