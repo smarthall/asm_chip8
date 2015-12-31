@@ -10,12 +10,12 @@ int yyparse(void);
 
 %}
 
-digit   [0-9]
-hex     [0-9a-fA-F]
+digit    [0-9]
+hex      [0-9a-fA-F]
 hexchar  [a-f]
 uhexchar [A-F]
-alnum   [a-zA-Z0-9]
-white   [ \t\n]
+alnum    [a-zA-Z0-9]
+white    [ \t\n]
 
 %%
 
