@@ -18,7 +18,8 @@ extern void yyerror(char*);
 %token RCALL_MNEMONIC SE_MNEMONIC SNE_MNEMONIC ADD_MNEMONIC OR_MNEMONIC
 %token AND_MNEMONIC XOR_MNEMONIC SHL_MNEMONIC SHR_MNEMONIC SUB_MNEMONIC
 %token RSB_MNEMONIC LDI_MNEMONIC JMI_MNEMONIC RAND_MNEMONIC DRAW_MNEMONIC
-%token SKK_MNEMONIC SNK_MNEMONIC
+%token SKK_MNEMONIC SNK_MNEMONIC SDELAY_MNEMONIC SSOUND_MNEMONIC
+%token ADI_MNEMONIC FONT_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> REGISTER LABEL ADDRESS
@@ -56,7 +57,11 @@ instruction: mov
            | rand
            | draw
            | skk
-           | snk;
+           | snk
+           | sdelay
+           | ssound
+           | adi
+           | font;
 
 mov_source: REGISTER
           | NUMBER;
@@ -134,4 +139,16 @@ skk: SKK_MNEMONIC REGISTER
 
 snk: SNK_MNEMONIC REGISTER
    { printf("Skip if key not pressed instruction.\n"); };
+
+sdelay: SDELAY_MNEMONIC REGISTER
+      { printf("Set delay instruction.\n"); };
+
+ssound: SSOUND_MNEMONIC REGISTER
+      { printf("Play sound instruction.\n"); };
+
+adi: ADI_MNEMONIC REGISTER
+   { printf("Add to index instruction.\n"); };
+
+font: FONT_MNEMONIC REGISTER
+    { printf("Font lookup instruction.\n"); };
 

@@ -39,6 +39,10 @@ white   [ \t\n]
 "draw"      { return DRAW_MNEMONIC; }
 "skk"       { return SKK_MNEMONIC; }
 "snk"       { return SNK_MNEMONIC; }
+"sdelay"    { return SDELAY_MNEMONIC; }
+"ssound"    { return SSOUND_MNEMONIC; }
+"adi"       { return ADI_MNEMONIC; }
+"font"      { return FONT_MNEMONIC; }
 
 {hex}[Xx]   { yylval.char_token = yytext; return REGISTER; }
 {digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
