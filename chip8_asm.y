@@ -23,8 +23,8 @@ extern void yyerror(char*);
 %token SKK_MNEMONIC SNK_MNEMONIC SDELAY_MNEMONIC SSOUND_MNEMONIC
 %token ADI_MNEMONIC FONT_MNEMONIC BCD_MNEMONIC STR_MNEMONIC LDR_MNEMONIC
 
-%token <int_token> NUMBER ADDRESS
-%token <char_token> REGISTER LABEL
+%token <int_token> NUMBER ADDRESS REGISTER
+%token <char_token> LABEL
 
 %start program
 

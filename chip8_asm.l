@@ -12,6 +12,8 @@ int yyparse(void);
 
 digit   [0-9]
 hex     [0-9a-fA-F]
+hexchar  [a-f]
+uhexchar [A-F]
 alnum   [a-zA-Z0-9]
 white   [ \t\n]
 
@@ -50,7 +52,10 @@ white   [ \t\n]
 "str"       { return STR_MNEMONIC; }
 "ldr"       { return LDR_MNEMONIC; }
 
-{hex}[Xx]   { yylval.char_token = yytext; return REGISTER; }
+{digit}[Xx] { yylval.int_token = yytext - '0'; return REGISTER; }
+{hexchar}x  { yylval.int_token = yytext - 'a' + 10; return REGISTER; }
+{uhexchar}X { yylval.int_token = yytext - 'A' + 10; return REGISTER; }
+
 {digit}+    { yylval.int_token = strtol(yytext, NULL, 10); return NUMBER; }
 {alnum}\:   { yylval.char_token = yytext; return LABEL; }
 0x{hex}+    { yylval.int_token = strtol(yytext + 2, NULL, 16); return ADDRESS; }
