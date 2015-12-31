@@ -2,18 +2,18 @@
 
 #include "generator.h"
 
-uint16_t generate_mov_register_register(int src, int dest) {
+uint16_t generate_mov_register_register(int src, int dst) {
     src = src << 4;
-    dest = dest << 8;
+    dst = dst << 8;
 
-    return 0x8000 | src | dest;
+    return 0x8000 | src | dst;
 }
 
-uint16_t generate_mov_number_register(int src, int dest) {
+uint16_t generate_mov_number_register(int src, int dst) {
     src = src % UCHAR_MAX;
-    dest = dest << 8;
+    dst = dst << 8;
 
-    return 0x6000 | dest | src;
+    return 0x6000 | dst | src;
 }
 
 uint16_t generate_call(int address) {
@@ -34,4 +34,17 @@ uint16_t generate_rtn() {
 
 uint16_t generate_jmp(int address) {
     return 0x1000 | address;
+}
+
+uint16_t generate_se_register_register(int src, int dst) {
+    src = src << 4;
+    dst = dst << 8;
+
+    return 0x5000 | src | dst;
+}
+
+uint16_t generate_se_register_number(int src, int dst) {
+    src = src << 8;
+
+    return 0x3000 | src | dst;
 }

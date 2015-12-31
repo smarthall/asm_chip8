@@ -107,8 +107,10 @@ jmp: JMP_MNEMONIC ADDRESS
 se_target: REGISTER
          | NUMBER;
 
-se: SE_MNEMONIC REGISTER COMMA se_target
-  { printf("Skip if equal instruction.\n"); };
+se: SE_MNEMONIC REGISTER COMMA REGISTER
+  { $$ = generate_se_register_register($2, $4); }
+  | SE_MNEMONIC REGISTER COMMA NUMBER
+  { $$ = generate_se_register_number($2, $4); };
 
 sne: SNE_MNEMONIC REGISTER COMMA se_target
    { printf("Skip if not equal instruction.\n"); };
