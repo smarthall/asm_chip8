@@ -61,3 +61,16 @@ uint16_t generate_sne_register_number(int src, int dst) {
 
     return 0x4000 | src | dst;
 }
+
+uint16_t generate_add_register_register(int value, int accumulator) {
+    value = value << 4;
+    accumulator = accumulator << 8;
+
+    return 0x8004 | value | accumulator;
+}
+
+uint16_t generate_add_register_number(int value, int accumulator) {
+    accumulator = accumulator << 8;
+
+    return 0x7000 | value | accumulator;
+}

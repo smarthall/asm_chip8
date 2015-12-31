@@ -114,11 +114,10 @@ sne: SNE_MNEMONIC REGISTER COMMA REGISTER
    | SNE_MNEMONIC REGISTER COMMA NUMBER
    { $$ = generate_sne_register_number($2, $4); };
 
-add_target: NUMBER
-          | REGISTER;
-
-add: ADD_MNEMONIC REGISTER COMMA add_target
-   { printf("Add instruction.\n"); };
+add: ADD_MNEMONIC REGISTER COMMA REGISTER
+   { $$ = generate_add_register_register($2, $4); }
+   | ADD_MNEMONIC NUMBER COMMA REGISTER
+   { $$ = generate_add_register_number($2, $4); };
 
 or: OR_MNEMONIC REGISTER COMMA REGISTER
    { printf("Or instruction.\n"); };

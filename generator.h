@@ -14,5 +14,7 @@ uint16_t generate_se_register_register(int src, int dst);
 uint16_t generate_se_register_number(int src, int dst);
 uint16_t generate_sne_register_register(int src, int dst);
 uint16_t generate_sne_register_number(int src, int dst);
+uint16_t generate_add_register_register(int value, int accumulator);
+uint16_t generate_add_register_number(int value, int accumulator);
 
 #endif /* GENERATOR_H */
