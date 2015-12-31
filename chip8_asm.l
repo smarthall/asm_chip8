@@ -1,7 +1,10 @@
 %{
 
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "chip8_asm.tab.h"
+
 void yyerror(char*);
 int yyparse(void);
 
@@ -48,7 +51,7 @@ white   [ \t\n]
 "ldr"       { return LDR_MNEMONIC; }
 
 {hex}[Xx]   { yylval.char_token = yytext; return REGISTER; }
-{digit}+    { yylval.int_token = atoi(yytext); return NUMBER; }
+{digit}+    { yylval.int_token = strtol(yytext, NULL, 10); return NUMBER; }
 {alnum}\:   { yylval.char_token = yytext; return LABEL; }
 0x{hex}+    { yylval.char_token = yytext; return ADDRESS; }
 
