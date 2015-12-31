@@ -8,5 +8,6 @@ uint16_t generate_mov_number_register(int src, int dest);
 uint16_t generate_call(int address);
 uint16_t generate_rcall(int address);
 uint16_t generate_cls();
+uint16_t generate_rtn();
 
 #endif /* GENERATOR_H */

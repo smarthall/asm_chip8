@@ -27,3 +27,7 @@ uint16_t generate_rcall(int address) {
 uint16_t generate_cls() {
     return 0x00e0;
 }
+
+uint16_t generate_rtn() {
+    return 0x00ee;
+}

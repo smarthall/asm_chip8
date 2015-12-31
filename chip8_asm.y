@@ -99,7 +99,7 @@ cls: CLS_MNEMONIC
    { $$ = generate_cls(); };
 
 rtn: RTN_MNEMONIC
-   { printf("Return instruction.\n"); };
+   { $$ = generate_rtn(); };
 
 jmp: JMP_MNEMONIC ADDRESS
    { printf("Jump instruction.\n"); };
