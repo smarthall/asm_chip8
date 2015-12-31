@@ -19,7 +19,7 @@ extern void yyerror(char*);
 %token AND_MNEMONIC XOR_MNEMONIC SHL_MNEMONIC SHR_MNEMONIC SUB_MNEMONIC
 %token RSB_MNEMONIC LDI_MNEMONIC JMI_MNEMONIC RAND_MNEMONIC DRAW_MNEMONIC
 %token SKK_MNEMONIC SNK_MNEMONIC SDELAY_MNEMONIC SSOUND_MNEMONIC
-%token ADI_MNEMONIC FONT_MNEMONIC
+%token ADI_MNEMONIC FONT_MNEMONIC BCD_MNEMONIC
 
 %token <int_token> NUMBER
 %token <char_token> REGISTER LABEL ADDRESS
@@ -61,7 +61,8 @@ instruction: mov
            | sdelay
            | ssound
            | adi
-           | font;
+           | font
+           | bcd;
 
 mov_source: REGISTER
           | NUMBER;
@@ -151,4 +152,7 @@ adi: ADI_MNEMONIC REGISTER
 
 font: FONT_MNEMONIC REGISTER
     { printf("Font lookup instruction.\n"); };
+
+bcd: BCD_MNEMONIC REGISTER
+   { printf("Binary coded decimal instruction.\n"); };
 
