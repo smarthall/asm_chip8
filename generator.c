@@ -31,3 +31,7 @@ uint16_t generate_cls() {
 uint16_t generate_rtn() {
     return 0x00ee;
 }
+
+uint16_t generate_jmp(int address) {
+    return 0x1000 | address;
+}

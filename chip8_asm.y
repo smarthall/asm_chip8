@@ -87,7 +87,7 @@ mov: MOV_MNEMONIC REGISTER COMMA REGISTER
    { $$ = generate_mov_register_register($2, $4); }
 
    | MOV_MNEMONIC NUMBER COMMA REGISTER
-   { $$ = generate_mov_number_register($2, $4);};
+   { $$ = generate_mov_number_register($2, $4); };
 
 rcall: RCALL_MNEMONIC ADDRESS
    { $$ = generate_rcall($2); };
@@ -102,7 +102,7 @@ rtn: RTN_MNEMONIC
    { $$ = generate_rtn(); };
 
 jmp: JMP_MNEMONIC ADDRESS
-   { printf("Jump instruction.\n"); };
+   { $$ = generate_jmp($2); };
 
 se_target: REGISTER
          | NUMBER;

@@ -9,5 +9,6 @@ uint16_t generate_call(int address);
 uint16_t generate_rcall(int address);
 uint16_t generate_cls();
 uint16_t generate_rtn();
+uint16_t generate_jmp(int address);
 
 #endif /* GENERATOR_H */
