@@ -153,16 +153,16 @@ draw: DRAW_MNEMONIC REGISTER COMMA REGISTER COMMA NUMBER
     { $$ = generate_draw($2, $4, $6); };
 
 skk: SKK_MNEMONIC REGISTER
-   { printf("Skip if key pressed instruction.\n"); };
+   { $$ = generate_skk($2); };
 
 snk: SNK_MNEMONIC REGISTER
-   { printf("Skip if key not pressed instruction.\n"); };
+   { $$ = generate_snk($2); };
 
 sdelay: SDELAY_MNEMONIC REGISTER
-      { printf("Set delay instruction.\n"); };
+      { $$ = generate_sdelay($2); };
 
 ssound: SSOUND_MNEMONIC REGISTER
-      { printf("Play sound instruction.\n"); };
+      { $$ = generate_ssound($2); };
 
 adi: ADI_MNEMONIC REGISTER
    { printf("Add to index instruction.\n"); };

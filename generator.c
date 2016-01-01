@@ -142,3 +142,27 @@ uint16_t generate_draw(int x_reg, int y_reg, int height) {
 
     return 0xD000 | x_reg | y_reg | height;
 }
+
+uint16_t generate_skk(int reg) {
+    reg = reg << 8;
+
+    return 0xE09E | reg;
+}
+
+uint16_t generate_snk(int reg) {
+    reg = reg << 8;
+
+    return 0xE0A1 | reg;
+}
+
+uint16_t generate_sdelay(int reg) {
+    reg = reg << 8;
+
+    return 0xF015 | reg;
+}
+
+uint16_t generate_ssound(int reg) {
+    reg = reg << 8;
+
+    return 0xF018 | reg;
+}

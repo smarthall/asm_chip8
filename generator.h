@@ -27,5 +27,9 @@ uint16_t generate_ldi(int I);
 uint16_t generate_jmi(int base);
 uint16_t generate_rand(int reg, int mask);
 uint16_t generate_draw(int x_reg, int y_reg, int height);
+uint16_t generate_skk(int reg);
+uint16_t generate_snk(int reg);
+uint16_t generate_sdelay(int reg);
+uint16_t generate_ssound(int reg);
 
 #endif /* GENERATOR_H */
