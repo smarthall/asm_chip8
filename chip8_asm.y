@@ -129,10 +129,10 @@ xor: XOR_MNEMONIC REGISTER COMMA REGISTER
    { $$ = generate_xor($2, $4); };
 
 shl: SHL_MNEMONIC REGISTER
-   { printf("Shift left instruction.\n"); };
+   { $$ = generate_shl($2); };
 
 shr: SHR_MNEMONIC REGISTER
-   { printf("Shift right instruction.\n"); };
+   { $$ = generate_shr($2); };
 
 sub: SUB_MNEMONIC REGISTER COMMA REGISTER
    { printf("Subtract instruction.\n"); };

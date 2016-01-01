@@ -19,5 +19,7 @@ uint16_t generate_add_register_number(int value, int accumulator);
 uint16_t generate_or(int or, int dst);
 uint16_t generate_and(int and, int dst);
 uint16_t generate_xor(int xor, int dst);
+uint16_t generate_shl(int reg);
+uint16_t generate_shr(int reg);
 
 #endif /* GENERATOR_H */

@@ -95,3 +95,15 @@ uint16_t generate_xor(int xor, int dst) {
 
     return 0x8003 | xor | dst;
 }
+
+uint16_t generate_shl(int reg) {
+    reg = reg << 8;
+
+    return 0x800e | reg;
+}
+
+uint16_t generate_shr(int reg) {
+    reg = reg << 8;
+
+    return 0x8006 | reg;
+}
