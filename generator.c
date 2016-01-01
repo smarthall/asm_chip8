@@ -129,3 +129,16 @@ uint16_t generate_ldi(int I) {
 uint16_t generate_jmi(int base) {
     return 0xB000 | base;
 }
+
+uint16_t generate_rand(int reg, int mask) {
+    reg = reg << 8;
+
+    return 0xC000 | reg | mask;
+}
+
+uint16_t generate_draw(int x_reg, int y_reg, int height) {
+    x_reg = x_reg << 8;
+    y_reg = y_reg << 4;
+
+    return 0xD000 | x_reg | y_reg | height;
+}

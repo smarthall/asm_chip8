@@ -25,5 +25,7 @@ uint16_t generate_sub(int value, int accumulator);
 uint16_t generate_rsb(int accumulator, int value);
 uint16_t generate_ldi(int I);
 uint16_t generate_jmi(int base);
+uint16_t generate_rand(int reg, int mask);
+uint16_t generate_draw(int x_reg, int y_reg, int height);
 
 #endif /* GENERATOR_H */

@@ -147,10 +147,10 @@ jmi: JMI_MNEMONIC ADDRESS
    { $$ = generate_jmi($2); };
 
 rand: RAND_MNEMONIC REGISTER COMMA NUMBER
-    { printf("Random number instruction.\n"); };
+    { $$ = generate_rand($2, $4); };
 
 draw: DRAW_MNEMONIC REGISTER COMMA REGISTER COMMA NUMBER
-    { printf("Draw instruction.\n"); };
+    { $$ = generate_draw($2, $4, $6); };
 
 skk: SKK_MNEMONIC REGISTER
    { printf("Skip if key pressed instruction.\n"); };
