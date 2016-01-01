@@ -3,11 +3,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
+#include <endian.h>
 
 #include "generator.h"
 
 extern int yylex();
 extern void yyerror(char*);
+
+void write_opcode(uint16_t opcode) {
+    opcode = htobe16(opcode);
+
+    fwrite(&opcode, sizeof(opcode), 1, stdout);
+}
 
 %}
 
@@ -50,9 +57,9 @@ statement_list: statement statement_list
               | statement;
 
 statement: instruction SEMICOLON
-         { fwrite(&$1, sizeof($1), 1, stdout); }
+         { write_opcode($1); }
          | LABEL instruction SEMICOLON
-         { fwrite(&$2, sizeof($2), 1, stdout); };
+         { write_opcode($2); };
 
 instruction: mov
            | call
