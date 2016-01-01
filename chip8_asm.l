@@ -70,6 +70,9 @@ white    [ \t\n]
  /* Labels */
 {alnum}+\:   { yylval.char_token = yytext; return LABEL; }
 
+ /* Comments */
+#[^\n]+     ;
+
  /* Whitespace */
 {white}+    ; // Ignore whitespace
 
