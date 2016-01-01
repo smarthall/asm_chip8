@@ -28,6 +28,7 @@ extern void yyerror(char*);
 %token RSB_MNEMONIC LDI_MNEMONIC JMI_MNEMONIC RAND_MNEMONIC DRAW_MNEMONIC
 %token SKK_MNEMONIC SNK_MNEMONIC SDELAY_MNEMONIC SSOUND_MNEMONIC
 %token ADI_MNEMONIC FONT_MNEMONIC BCD_MNEMONIC STR_MNEMONIC LDR_MNEMONIC
+%token KEY_MNEMONIC
 
 /* things coming from the lexer */
 %token <int_token> NUMBER ADDRESS REGISTER
@@ -36,7 +37,7 @@ extern void yyerror(char*);
 /* Types for our instruction grammars */
 %type <opcode_token> mov call cls rtn jmp rcall se sne add and or xor shl shr
 %type <opcode_token> sub rsb ldi jmi rand draw skk snk sdelay ssound adi font
-%type <opcode_token> bcd str ldr
+%type <opcode_token> bcd str ldr key
 %type <opcode_token> instruction
 
 %start program
@@ -49,9 +50,9 @@ statement_list: statement statement_list
               | statement;
 
 statement: instruction SEMICOLON
-         { printf("Opcode: 0x%04x\n", $1); }
+         { fwrite(&$1, sizeof($1), 1, stdout); }
          | LABEL instruction SEMICOLON
-         { printf("Opcode: 0x%04x\n", $2); };
+         { fwrite(&$2, sizeof($2), 1, stdout); };
 
 instruction: mov
            | call
@@ -81,7 +82,8 @@ instruction: mov
            | font
            | bcd
            | str
-           | ldr;
+           | ldr
+           | key;
 
 mov: MOV_MNEMONIC REGISTER COMMA REGISTER
    { $$ = generate_mov_register_register($2, $4); }
@@ -178,3 +180,6 @@ str: STR_MNEMONIC REGISTER
 
 ldr: LDR_MNEMONIC REGISTER
    { $$ = generate_ldr($2); };
+
+key: KEY_MNEMONIC REGISTER
+   { $$ = generate_key($2); };

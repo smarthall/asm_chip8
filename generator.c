@@ -196,3 +196,9 @@ uint16_t generate_ldr(int reg) {
 
     return 0xF065 | reg;
 }
+
+uint16_t generate_key(int reg) {
+    reg = reg << 8;
+
+    return 0xF00A | reg;
+}

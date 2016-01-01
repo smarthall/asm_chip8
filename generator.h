@@ -36,5 +36,6 @@ uint16_t generate_font(int reg);
 uint16_t generate_bcd(int reg);
 uint16_t generate_str(int reg);
 uint16_t generate_ldr(int reg);
+uint16_t generate_key(int reg);
 
 #endif /* GENERATOR_H */

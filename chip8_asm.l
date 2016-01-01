@@ -54,6 +54,7 @@ white    [ \t\n]
 "bcd"       { return BCD_MNEMONIC; }
 "str"       { return STR_MNEMONIC; }
 "ldr"       { return LDR_MNEMONIC; }
+"key"       { return KEY_MNEMONIC; }
 
  /* Register names */
 {digit}[Xx] { yylval.int_token = *yytext - '0'; return REGISTER; }
