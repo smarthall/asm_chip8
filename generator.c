@@ -107,3 +107,17 @@ uint16_t generate_shr(int reg) {
 
     return 0x8006 | reg;
 }
+
+uint16_t generate_sub(int value, int accumulator) {
+    accumulator = accumulator << 8;
+    value = value << 4;
+
+    return 0x8005 | accumulator | value;
+}
+
+uint16_t generate_rsb(int accumulator, int value) {
+    accumulator = accumulator << 4;
+    value = value << 8;
+
+    return 0x8007 | accumulator | value;
+}

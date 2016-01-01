@@ -135,10 +135,10 @@ shr: SHR_MNEMONIC REGISTER
    { $$ = generate_shr($2); };
 
 sub: SUB_MNEMONIC REGISTER COMMA REGISTER
-   { printf("Subtract instruction.\n"); };
+   { $$ = generate_sub($2, $4); };
 
 rsb: RSB_MNEMONIC REGISTER COMMA REGISTER
-   { printf("Right subtract instruction.\n"); };
+   { $$ = generate_rsb($2, $4); };
 
 ldi: LDI_MNEMONIC ADDRESS
    { printf("Load I instruction.\n"); };

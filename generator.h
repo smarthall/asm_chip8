@@ -21,5 +21,7 @@ uint16_t generate_and(int and, int dst);
 uint16_t generate_xor(int xor, int dst);
 uint16_t generate_shl(int reg);
 uint16_t generate_shr(int reg);
+uint16_t generate_sub(int value, int accumulator);
+uint16_t generate_rsb(int accumulator, int value);
 
 #endif /* GENERATOR_H */
