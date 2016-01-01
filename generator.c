@@ -121,3 +121,11 @@ uint16_t generate_rsb(int accumulator, int value) {
 
     return 0x8007 | accumulator | value;
 }
+
+uint16_t generate_ldi(int I) {
+    return 0xA000 | I;
+}
+
+uint16_t generate_jmi(int base) {
+    return 0xB000 | base;
+}

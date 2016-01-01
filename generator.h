@@ -23,5 +23,7 @@ uint16_t generate_shl(int reg);
 uint16_t generate_shr(int reg);
 uint16_t generate_sub(int value, int accumulator);
 uint16_t generate_rsb(int accumulator, int value);
+uint16_t generate_ldi(int I);
+uint16_t generate_jmi(int base);
 
 #endif /* GENERATOR_H */

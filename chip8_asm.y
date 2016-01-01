@@ -141,10 +141,10 @@ rsb: RSB_MNEMONIC REGISTER COMMA REGISTER
    { $$ = generate_rsb($2, $4); };
 
 ldi: LDI_MNEMONIC ADDRESS
-   { printf("Load I instruction.\n"); };
+   { $$ = generate_ldi($2); };
 
 jmi: JMI_MNEMONIC ADDRESS
-   { printf("Indexed jump instruction.\n"); };
+   { $$ = generate_jmi($2); };
 
 rand: RAND_MNEMONIC REGISTER COMMA NUMBER
     { printf("Random number instruction.\n"); };
