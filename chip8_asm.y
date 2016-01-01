@@ -120,13 +120,13 @@ add: ADD_MNEMONIC REGISTER COMMA REGISTER
    { $$ = generate_add_register_number($2, $4); };
 
 or: OR_MNEMONIC REGISTER COMMA REGISTER
-   { printf("Or instruction.\n"); };
+   { $$ = generate_or($2, $4); };
 
 and: AND_MNEMONIC REGISTER COMMA REGISTER
-   { printf("And instruction.\n"); };
+   { $$ = generate_and($2, $4); };
 
 xor: XOR_MNEMONIC REGISTER COMMA REGISTER
-   { printf("Xor instruction.\n"); };
+   { $$ = generate_xor($2, $4); };
 
 shl: SHL_MNEMONIC REGISTER
    { printf("Shift left instruction.\n"); };

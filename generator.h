@@ -16,5 +16,8 @@ uint16_t generate_sne_register_register(int src, int dst);
 uint16_t generate_sne_register_number(int src, int dst);
 uint16_t generate_add_register_register(int value, int accumulator);
 uint16_t generate_add_register_number(int value, int accumulator);
+uint16_t generate_or(int or, int dst);
+uint16_t generate_and(int and, int dst);
+uint16_t generate_xor(int xor, int dst);
 
 #endif /* GENERATOR_H */

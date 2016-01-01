@@ -74,3 +74,24 @@ uint16_t generate_add_register_number(int value, int accumulator) {
 
     return 0x7000 | value | accumulator;
 }
+
+uint16_t generate_or(int or, int dst) {
+    or = or << 8;
+    dst = dst << 4;
+
+    return 0x8001 | or | dst;
+}
+
+uint16_t generate_and(int and, int dst) {
+    and = and << 8;
+    dst = dst << 4;
+
+    return 0x8002 | and | dst;
+}
+
+uint16_t generate_xor(int xor, int dst) {
+    xor = xor << 8;
+    dst = dst << 4;
+
+    return 0x8003 | xor | dst;
+}
