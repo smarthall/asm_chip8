@@ -172,3 +172,27 @@ uint16_t generate_adi(int reg) {
 
     return 0xF01E | reg;
 }
+
+uint16_t generate_font(int reg) {
+    reg = reg << 8;
+
+    return 0xF029 | reg;
+}
+
+uint16_t generate_bcd(int reg) {
+    reg = reg << 8;
+
+    return 0xF033 | reg;
+}
+
+uint16_t generate_str(int reg) {
+    reg = reg << 8;
+
+    return 0xF055 | reg;
+}
+
+uint16_t generate_ldr(int reg) {
+    reg = reg << 8;
+
+    return 0xF065 | reg;
+}

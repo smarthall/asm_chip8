@@ -168,14 +168,13 @@ adi: ADI_MNEMONIC REGISTER
    { $$ = generate_adi($2); };
 
 font: FONT_MNEMONIC REGISTER
-    { printf("Font lookup instruction.\n"); };
+    { $$ = generate_font($2); };
 
 bcd: BCD_MNEMONIC REGISTER
-   { printf("Binary coded decimal instruction.\n"); };
+   { $$ = generate_bcd($2); };
 
 str: STR_MNEMONIC REGISTER
-   { printf("Store registers instruction.\n"); };
+   { $$ = generate_str($2); };
 
 ldr: LDR_MNEMONIC REGISTER
-   { printf("Load registers instruction.\n"); };
-
+   { $$ = generate_ldr($2); };
