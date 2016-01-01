@@ -165,7 +165,7 @@ ssound: SSOUND_MNEMONIC REGISTER
       { $$ = generate_ssound($2); };
 
 adi: ADI_MNEMONIC REGISTER
-   { printf("Add to index instruction.\n"); };
+   { $$ = generate_adi($2); };
 
 font: FONT_MNEMONIC REGISTER
     { printf("Font lookup instruction.\n"); };

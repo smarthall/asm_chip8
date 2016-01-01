@@ -166,3 +166,9 @@ uint16_t generate_ssound(int reg) {
 
     return 0xF018 | reg;
 }
+
+uint16_t generate_adi(int reg) {
+    reg = reg << 8;
+
+    return 0xF01E | reg;
+}

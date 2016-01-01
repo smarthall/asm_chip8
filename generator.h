@@ -31,5 +31,6 @@ uint16_t generate_skk(int reg);
 uint16_t generate_snk(int reg);
 uint16_t generate_sdelay(int reg);
 uint16_t generate_ssound(int reg);
+uint16_t generate_adi(int reg);
 
 #endif /* GENERATOR_H */
