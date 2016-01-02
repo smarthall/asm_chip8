@@ -7,8 +7,10 @@
 
 #include "generator.h"
 
+#define YYERROR_VERBOSE
+void yyerror(const char *msg){printf("ERROR(PARSER): %s\n", msg);}
+
 extern int yylex();
-extern void yyerror(char*);
 
 void write_opcode(uint16_t opcode) {
     opcode = htobe16(opcode);
@@ -37,8 +39,8 @@ void write_opcode(uint16_t opcode) {
 %token ADI_MNEMONIC FONT_MNEMONIC BCD_MNEMONIC STR_MNEMONIC LDR_MNEMONIC
 %token KEY_MNEMONIC
 
-/* things coming from the lexer */
-%token <int_token> NUMBER ADDRESS REGISTER
+/* Things coming from the lexer */
+%token <int_token> NUMBER REGISTER
 %token <char_token> LABEL
 
 /* Types for our instruction grammars */
@@ -98,10 +100,10 @@ mov: MOV_MNEMONIC REGISTER COMMA REGISTER
    | MOV_MNEMONIC NUMBER COMMA REGISTER
    { $$ = generate_mov_number_register($2, $4); };
 
-rcall: RCALL_MNEMONIC ADDRESS
+rcall: RCALL_MNEMONIC NUMBER
    { $$ = generate_rcall($2); };
 
-call: CALL_MNEMONIC ADDRESS
+call: CALL_MNEMONIC NUMBER
    { $$ = generate_call($2); };
 
 cls: CLS_MNEMONIC
@@ -110,7 +112,7 @@ cls: CLS_MNEMONIC
 rtn: RTN_MNEMONIC
    { $$ = generate_rtn(); };
 
-jmp: JMP_MNEMONIC ADDRESS
+jmp: JMP_MNEMONIC NUMBER
    { $$ = generate_jmp($2); };
 
 se: SE_MNEMONIC REGISTER COMMA REGISTER
@@ -149,10 +151,10 @@ sub: SUB_MNEMONIC REGISTER COMMA REGISTER
 rsb: RSB_MNEMONIC REGISTER COMMA REGISTER
    { $$ = generate_rsb($2, $4); };
 
-ldi: LDI_MNEMONIC ADDRESS
+ldi: LDI_MNEMONIC NUMBER
    { $$ = generate_ldi($2); };
 
-jmi: JMI_MNEMONIC ADDRESS
+jmi: JMI_MNEMONIC NUMBER
    { $$ = generate_jmi($2); };
 
 rand: RAND_MNEMONIC REGISTER COMMA NUMBER

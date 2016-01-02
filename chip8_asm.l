@@ -56,19 +56,19 @@ white    [ \t\n]
 "ldr"       { return LDR_MNEMONIC; }
 "key"       { return KEY_MNEMONIC; }
 
- /* Register names */
-{digit}[Xx] { yylval.int_token = *yytext - '0'; return REGISTER; }
-{hexchar}x  { yylval.int_token = *yytext - 'a' + 10; return REGISTER; }
-{uhexchar}X { yylval.int_token = *yytext - 'A' + 10; return REGISTER; }
-
  /* Base 10 numbers */
 {digit}+    { yylval.int_token = strtol(yytext, NULL, 10); return NUMBER; }
 
  /* Hex numbers */
-0x{hex}+    { yylval.int_token = strtol(yytext + 2, NULL, 16); return ADDRESS; }
+0x{hex}+    { yylval.int_token = strtol(yytext + 2, NULL, 16); return NUMBER; }
 
  /* Labels */
 {alnum}+\:   { yylval.char_token = yytext; return LABEL; }
+
+ /* Register names */
+{digit}[Xx] { yylval.int_token = *yytext - '0'; return REGISTER; }
+{hexchar}x  { yylval.int_token = *yytext - 'a' + 10; return REGISTER; }
+{uhexchar}X { yylval.int_token = *yytext - 'A' + 10; return REGISTER; }
 
  /* Comments */
 #[^\n]+     ;
@@ -78,7 +78,6 @@ white    [ \t\n]
 
 %%
 
-void yyerror(char * str) { printf("ERROR: Could not parse!\n"); }
 int yywrap(void) { }
 int main(void) {
     yyparse();
