@@ -6,6 +6,7 @@
 #include <endian.h>
 
 #include "generator.h"
+#include "ast.h"
 
 #define YYERROR_VERBOSE
 void yyerror(const char *msg){printf("ERROR(PARSER): %s\n", msg);}
@@ -25,6 +26,7 @@ void write_opcode(uint16_t opcode) {
     int         int_token;
     char        *char_token;
     uint16_t    opcode_token;
+    ast_argument *ast_argument;
 }
 
 /* Seperators */
@@ -49,6 +51,9 @@ void write_opcode(uint16_t opcode) {
 %type <opcode_token> bcd str ldr key
 %type <opcode_token> instruction
 
+/* AST Types */
+%type <ast_argument> register labelnum
+
 %start program
 
 %%
@@ -62,6 +67,14 @@ statement: instruction SEMICOLON
          { write_opcode($1); }
          | LABEL instruction SEMICOLON
          { write_opcode($2); };
+
+labelnum: NUMBER
+        { $$ = ast_create_number($1); }
+        | LABEL
+        { $$ = ast_create_label($1); };
+
+register: REGISTER
+        { $$ = ast_create_register($1); };
 
 instruction: mov
            | call
@@ -94,16 +107,16 @@ instruction: mov
            | ldr
            | key;
 
-mov: MOV_MNEMONIC REGISTER COMMA REGISTER
+mov: MOV_MNEMONIC register COMMA register
    { $$ = generate_mov_register_register($2, $4); }
 
-   | MOV_MNEMONIC NUMBER COMMA REGISTER
-   { $$ = generate_mov_number_register($2, $4); };
+   | MOV_MNEMONIC labelnum COMMA register
+   { $$ = generate_mov_labelnum_register($2, $4); };
 
-rcall: RCALL_MNEMONIC NUMBER
+rcall: RCALL_MNEMONIC labelnum
    { $$ = generate_rcall($2); };
 
-call: CALL_MNEMONIC NUMBER
+call: CALL_MNEMONIC labelnum
    { $$ = generate_call($2); };
 
 cls: CLS_MNEMONIC
@@ -112,83 +125,83 @@ cls: CLS_MNEMONIC
 rtn: RTN_MNEMONIC
    { $$ = generate_rtn(); };
 
-jmp: JMP_MNEMONIC NUMBER
+jmp: JMP_MNEMONIC labelnum
    { $$ = generate_jmp($2); };
 
-se: SE_MNEMONIC REGISTER COMMA REGISTER
+se: SE_MNEMONIC register COMMA register
   { $$ = generate_se_register_register($2, $4); }
-  | SE_MNEMONIC REGISTER COMMA NUMBER
-  { $$ = generate_se_register_number($2, $4); };
+  | SE_MNEMONIC register COMMA labelnum
+  { $$ = generate_se_register_labelnum($2, $4); };
 
-sne: SNE_MNEMONIC REGISTER COMMA REGISTER
+sne: SNE_MNEMONIC register COMMA register
    { $$ = generate_sne_register_register($2, $4); }
-   | SNE_MNEMONIC REGISTER COMMA NUMBER
-   { $$ = generate_sne_register_number($2, $4); };
+   | SNE_MNEMONIC register COMMA labelnum
+   { $$ = generate_sne_register_labelnum($2, $4); };
 
-add: ADD_MNEMONIC REGISTER COMMA REGISTER
+add: ADD_MNEMONIC register COMMA register
    { $$ = generate_add_register_register($2, $4); }
-   | ADD_MNEMONIC NUMBER COMMA REGISTER
-   { $$ = generate_add_register_number($2, $4); };
+   | ADD_MNEMONIC labelnum COMMA register
+   { $$ = generate_add_register_labelnum($2, $4); };
 
-or: OR_MNEMONIC REGISTER COMMA REGISTER
+or: OR_MNEMONIC register COMMA register
    { $$ = generate_or($2, $4); };
 
-and: AND_MNEMONIC REGISTER COMMA REGISTER
+and: AND_MNEMONIC register COMMA register
    { $$ = generate_and($2, $4); };
 
-xor: XOR_MNEMONIC REGISTER COMMA REGISTER
+xor: XOR_MNEMONIC register COMMA register
    { $$ = generate_xor($2, $4); };
 
-shl: SHL_MNEMONIC REGISTER
+shl: SHL_MNEMONIC register
    { $$ = generate_shl($2); };
 
-shr: SHR_MNEMONIC REGISTER
+shr: SHR_MNEMONIC register
    { $$ = generate_shr($2); };
 
-sub: SUB_MNEMONIC REGISTER COMMA REGISTER
+sub: SUB_MNEMONIC register COMMA register
    { $$ = generate_sub($2, $4); };
 
-rsb: RSB_MNEMONIC REGISTER COMMA REGISTER
+rsb: RSB_MNEMONIC register COMMA register
    { $$ = generate_rsb($2, $4); };
 
-ldi: LDI_MNEMONIC NUMBER
+ldi: LDI_MNEMONIC labelnum
    { $$ = generate_ldi($2); };
 
-jmi: JMI_MNEMONIC NUMBER
+jmi: JMI_MNEMONIC labelnum
    { $$ = generate_jmi($2); };
 
-rand: RAND_MNEMONIC REGISTER COMMA NUMBER
+rand: RAND_MNEMONIC register COMMA labelnum
     { $$ = generate_rand($2, $4); };
 
-draw: DRAW_MNEMONIC REGISTER COMMA REGISTER COMMA NUMBER
+draw: DRAW_MNEMONIC register COMMA register COMMA labelnum
     { $$ = generate_draw($2, $4, $6); };
 
-skk: SKK_MNEMONIC REGISTER
+skk: SKK_MNEMONIC register
    { $$ = generate_skk($2); };
 
-snk: SNK_MNEMONIC REGISTER
+snk: SNK_MNEMONIC register
    { $$ = generate_snk($2); };
 
-sdelay: SDELAY_MNEMONIC REGISTER
+sdelay: SDELAY_MNEMONIC register
       { $$ = generate_sdelay($2); };
 
-ssound: SSOUND_MNEMONIC REGISTER
+ssound: SSOUND_MNEMONIC register
       { $$ = generate_ssound($2); };
 
-adi: ADI_MNEMONIC REGISTER
+adi: ADI_MNEMONIC register
    { $$ = generate_adi($2); };
 
-font: FONT_MNEMONIC REGISTER
+font: FONT_MNEMONIC register
     { $$ = generate_font($2); };
 
-bcd: BCD_MNEMONIC REGISTER
+bcd: BCD_MNEMONIC register
    { $$ = generate_bcd($2); };
 
-str: STR_MNEMONIC REGISTER
+str: STR_MNEMONIC register
    { $$ = generate_str($2); };
 
-ldr: LDR_MNEMONIC REGISTER
+ldr: LDR_MNEMONIC register
    { $$ = generate_ldr($2); };
 
-key: KEY_MNEMONIC REGISTER
+key: KEY_MNEMONIC register
    { $$ = generate_key($2); };

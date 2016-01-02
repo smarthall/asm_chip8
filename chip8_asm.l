@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ast.h"
 #include "chip8_asm.tab.h"
 
 void yyerror(char*);
