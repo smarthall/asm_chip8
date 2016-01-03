@@ -111,7 +111,7 @@ mov: MOV_MNEMONIC register COMMA register
    { $$ = generate_mov_register_register($2, $4); }
 
    | MOV_MNEMONIC labelnum COMMA register
-   { $$ = generate_mov_labelnum_register($2, $4); };
+   { $$ = generate_mov_number_register($2, $4); };
 
 rcall: RCALL_MNEMONIC labelnum
    { $$ = generate_rcall($2); };
@@ -131,17 +131,17 @@ jmp: JMP_MNEMONIC labelnum
 se: SE_MNEMONIC register COMMA register
   { $$ = generate_se_register_register($2, $4); }
   | SE_MNEMONIC register COMMA labelnum
-  { $$ = generate_se_register_labelnum($2, $4); };
+  { $$ = generate_se_register_number($2, $4); };
 
 sne: SNE_MNEMONIC register COMMA register
    { $$ = generate_sne_register_register($2, $4); }
    | SNE_MNEMONIC register COMMA labelnum
-   { $$ = generate_sne_register_labelnum($2, $4); };
+   { $$ = generate_sne_register_number($2, $4); };
 
 add: ADD_MNEMONIC register COMMA register
    { $$ = generate_add_register_register($2, $4); }
    | ADD_MNEMONIC labelnum COMMA register
-   { $$ = generate_add_register_labelnum($2, $4); };
+   { $$ = generate_add_register_number($2, $4); };
 
 or: OR_MNEMONIC register COMMA register
    { $$ = generate_or($2, $4); };
